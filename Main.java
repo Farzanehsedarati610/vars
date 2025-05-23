@@ -16,3 +16,23 @@ public class Main {
     }
 }
 
+public class Server {
+    public static void main(String[] args) {
+        String port = System.getenv("PORT");
+        if (port == null) port = "8080";
+
+        System.out.println("Server running on port: " + port);
+
+        // Example transaction endpoint using lightweight HTTP handling
+        HttpServer server = HttpServer.create(new InetSocketAddress(Integer.parseInt(port)), 0);
+        server.createContext("/transfer", exchange -> {
+            String response = "Transaction received";
+            exchange.sendResponseHeaders(200, response.length());
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        });
+        server.start();
+    }
+}
+
