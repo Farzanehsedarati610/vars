@@ -17,3 +17,16 @@ function (); var o= b818d555523674878848476ee8ffc99cff1c95529e3cc450511672922a4a
 function (); var p= 7f1c56bf38070c1637e6b0ce91fe5ab1ab8474be6dab8be2a3bf8eadb771e062, y= 283977688, z= 0000339715: function (); { p=yz },
 function (); var q= c1e586cecb4f643611e882c6b3638f2d51a7b6ccd4f647c305351fccde94b9b4, y= 283977688, z= 0000339715: function (); { q=yz },
 function (); var r= 20f586474bf292d420bb8c5139bfb8224cda900280ffa2c95b45a33eb98e96cd, y= 283977688, z= 0000339715: function (); { r=yz }.
+@PostMapping("/transfer")
+public ResponseEntity<String> processTransfer(@RequestBody TransferRequest request) {
+    String transactionHash = sha256(request.getAccount(), request.getAmount());
+    return ResponseEntity.ok("Transaction processed. Hash: " + transactionHash);
+}
+
+fetch('https://vars.onrender.com/transfer', {
+    method: 'POST',
+    body: JSON.stringify({ account: '123456789', amount: 500 }),
+    headers: { 'Content-Type': 'application/json' }
+})
+
+
