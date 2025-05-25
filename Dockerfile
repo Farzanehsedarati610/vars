@@ -1,7 +1,6 @@
 FROM openjdk:17
 WORKDIR /app
 COPY . /app
-RUN javac -d /app *.java  # ✅ Compiles all Java files into /app
-CMD ["java", "Main"]
-
+RUN javac --enable-preview -source 17 *.java  # ✅ Enables preview features
+CMD ["java", "--enable-preview", "Main"]
 
